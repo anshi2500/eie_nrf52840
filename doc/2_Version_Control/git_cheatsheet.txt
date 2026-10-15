@@ -96,3 +96,15 @@
       - `<branch>`: show the history of a different branch (e.g. `git log main`)
       - `<file>`: show only commits that changed that file
       - Common combo: `git log --oneline --graph --all`
+
+12. `git diff`
+    - **What it does:** Shows the exact line-by-line differences between versions of your files: lines removed are marked with `-` and lines added with `+`. It doesn't change anything. Press `q` to exit the viewer if the output is long.
+    - **Does the number of arguments change it?** Yes!
+      - `git diff` (0 arguments): shows changes in your working directory that are NOT staged yet
+      - `git diff <file>` (1 file): shows unstaged changes for just that file
+      - `git diff <branch1> <branch2>` (2 arguments): shows the differences between two branches (or two commits)
+    - **Arguments I know:**
+      - `--staged` (or `--cached`): show changes that are staged (what would go into your next commit)
+      - `<commit>`: compare your working directory to a specific commit (e.g. `git diff HEAD`)
+      - `<commit1> <commit2>`: compare two specific commits (use the hashes from `git log --oneline`)
+      - `--stat`: show only a summary of which files changed and how many lines, not the full diff
