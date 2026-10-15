@@ -43,6 +43,7 @@
      - `git push <remote> <branch>`: push a specific branch to a specific remote (e.g. `git push origin main`)
      - `-u` (or `--set-upstream`): link your local branch to the remote branch so future `git push`/`git pull` need no arguments (e.g. `git push -u origin my-branch`)
      - `--force`: overwrite the remote history (dangerous! avoid on shared branches)
+     - `-u <remote> <branch>` (or `--set-upstream`): pushes the branch AND links your local branch to the remote one. After that, plain `git push` and `git pull` work with no arguments because Git already knows which remote branch to use. You only need to do this once per branch, usually the first time you push a new branch.
 
 6. `git merge`
    - **What it does:** Combines the history of another branch into the branch you're currently on.
@@ -69,3 +70,29 @@
      - `git fetch <remote> <branch>`: fetch only one branch
      - `--all`: fetch from all remotes
      - `--prune`: remove local references to branches that were deleted on the remote
+
+9. `git add` 
+   - **What it does:** Moves changes from your working directory to the Git staging area
+   - **Arguments I know:**
+     - git add <file_path>: Stages a specific file (e.g., git add src/main.js).
+     - git add .: Stages all changes (new, modified, and deleted files) within the current directory and its subdirectories.
+     - git add : /: Stages all changes from anywhere within the entire repository, regardless of what subdirectory you are currently in.
+     - git add *: Uses shell expansion to stage files. Note that this ignores files starting with a dot (like .env).
+
+10. `git status`
+    - **What it does:** Displays the current state of your working directory and staging area
+    - **Arguments I know:**
+     - `git status`: full, human-readable output
+     - `-s` (or `--short`): compact output, one line per file
+     - `-b`: include branch info in the short output (e.g. `git status -sb`)
+
+11. `git log`
+    - **What it does:** Shows the commit history of the current branch, newest first: each commit's hash, author, date, and message. Press `q` to exit the viewer.
+    - **Arguments I know:**
+      - `--oneline`: one condensed line per commit (short hash + message)
+      - `--graph`: draw an ASCII graph of branches and merges
+      - `--all`: show commits from all branches, not just the current one
+      - `-n <number>` (or `-<number>`): limit how many commits are shown (e.g. `git log -5`)
+      - `<branch>`: show the history of a different branch (e.g. `git log main`)
+      - `<file>`: show only commits that changed that file
+      - Common combo: `git log --oneline --graph --all`
