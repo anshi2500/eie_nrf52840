@@ -1,0 +1,71 @@
+# Git Cheatsheet
+
+1. `git commit`
+   - **What it does:** Saves a snapshot of everything you've staged (with `git add`) into the repository's history.
+   - **Arguments I know:**
+     - `-m "message"`: write the commit message inline instead of opening a text editor
+     - `-a`: automatically stage all changes to already-tracked files before committing (does not include new files)
+     - `-am "message"`: combines `-a` and `-m`
+     - `--amend`: replace the most recent commit (change its message or add forgotten changes)
+   - **Does the number of arguments change it?** Not really, but with no `-m` it opens an editor for the message.
+
+2. `git branch`
+   - **What it does:** Lists, creates, or deletes branches.
+   - **Does the number of arguments change it?** Yes!
+     - `git branch` (0 arguments): lists all local branches; the current one has a `*`
+     - `git branch <name>` (1 argument): creates a new branch called `<name>` at your current commit (does NOT switch to it)
+     - `git branch <name> <start-point>` (2 arguments): creates a new branch starting from a specific commit or branch
+   - **Other arguments I know:**
+     - `-d <name>`: delete a branch (safe, only if it's already merged)
+     - `-D <name>`: force delete a branch
+     - `-a`: list local and remote branches
+     - `-m <new-name>`: rename the current branch
+
+3. `git checkout`
+   - **What it does:** Switches to a different branch or commit, updating the files in your working directory to match.
+   - **Arguments I know:**
+     - `git checkout <branch>`: switch to an existing branch
+     - `git checkout -b <new-branch>`: create a new branch AND switch to it (shortcut for `git branch` + `git checkout`)
+     - `git checkout <commit-hash>`: switch to a specific commit ("detached HEAD" state)
+     - `git checkout -- <file>`: discard uncommitted changes to a file
+
+4. `git pull`
+   - **What it does:** Downloads new commits from the remote repository and merges them into your current branch. It is `git fetch` followed by `git merge`.
+   - **Arguments I know:**
+     - `git pull`: pulls from the remote branch your current branch is tracking
+     - `git pull <remote> <branch>`: pull a specific branch from a specific remote (e.g. `git pull origin main`)
+     - `--rebase`: rebase your commits on top of the remote's instead of merging
+
+5. `git push`
+   - **What it does:** Uploads your local commits to a remote repository (like GitHub).
+   - **Arguments I know:**
+     - `git push`: push the current branch to its tracked remote branch
+     - `git push <remote> <branch>`: push a specific branch to a specific remote (e.g. `git push origin main`)
+     - `-u` (or `--set-upstream`): link your local branch to the remote branch so future `git push`/`git pull` need no arguments (e.g. `git push -u origin my-branch`)
+     - `--force`: overwrite the remote history (dangerous! avoid on shared branches)
+
+6. `git merge`
+   - **What it does:** Combines the history of another branch into the branch you're currently on.
+   - **Arguments I know:**
+     - `git merge <branch>`: merge `<branch>` into the current branch
+     - `--no-ff`: always create a merge commit, even if a fast-forward is possible
+     - `--abort`: cancel a merge that has conflicts and go back to how things were before
+   - **Note:** If both branches changed the same lines, you get a merge conflict that you must fix by hand, then `git add` and `git commit`.
+
+7. `git rebase`
+   - **What it does:** Moves or replays your branch's commits on top of another branch, creating a cleaner, linear history (instead of a merge commit).
+   - **Arguments I know:**
+     - `git rebase <branch>`: replay your current branch's commits on top of `<branch>` (e.g. `git rebase main`)
+     - `-i` (interactive): lets you reorder, squash, edit, or drop commits
+     - `--continue`: continue after resolving a conflict
+     - `--abort`: cancel the rebase
+   - **Warning:** Don't rebase commits that you've already pushed and others are using.
+
+8. `git fetch`
+   - **What it does:** Downloads new commits and branch info from the remote WITHOUT changing your working files or merging anything. It is the safe version of `git pull`.
+   - **Arguments I know:**
+     - `git fetch`: fetch from the default remote (usually `origin`)
+     - `git fetch <remote>`: fetch from a specific remote
+     - `git fetch <remote> <branch>`: fetch only one branch
+     - `--all`: fetch from all remotes
+     - `--prune`: remove local references to branches that were deleted on the remote
