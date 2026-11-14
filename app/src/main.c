@@ -10,7 +10,7 @@
 #include "LED.h"
 #include "linked_list.h"
 
-#define SLEEP_MS 1
+#define SLEEP_MS 1000
 
 int main(void) {
   if (0 > BTN_init()) {
@@ -34,17 +34,27 @@ int main(void) {
 
   ll_remove_data_at_cursor(my_linked_list);  // Expected 5
 
+  ll_cursor_move_back(my_linked_list, 1);
+  printk("data at cursor %d\n", ll_cursor_get_data(my_linked_list));
+
   ll_print_data(my_linked_list);  // Expected: 0 1 2 3 4 6 7 8 9
 
   ll_print_data_reverse(my_linked_list);
 
-  ll_cursor_move_back(my_linked_list, 2);
+  ll_cursor_move_back(my_linked_list, 1);
 
   ll_add_data_at_cursor(my_linked_list, 55);
+
+  ll_print_data(my_linked_list);
+  
+  ll_cursor_move_forward(my_linked_list, 2);
+
+  printk("data at cursor %d\n", ll_cursor_get_data(my_linked_list));
 
   ll_remove_data_at_cursor(my_linked_list);
 
   ll_print_data(my_linked_list);  // Expected: 0 1 2 55 4 6 7 8 9
+
 
   ll_destroy(my_linked_list);
 
